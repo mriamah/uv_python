@@ -2,7 +2,7 @@
 
 Manage Python versions and installations using the `uv` Python package manager.
 
-![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.1.0-blue)
+![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.1.4-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 
 ## Requirements
