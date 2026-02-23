@@ -7,9 +7,9 @@ Manage Python versions and installations using the `uv` Python package manager.
 
 ## Requirements
 
-- Ansible 2.12 or higher
-- `uv` installed and available on `PATH`
-- `uv` version ≥ 0.8.0
+- Ansible 2.12 or higher.
+- `uv` installed and available on `PATH`.
+- `uv` version ≥ `0.8.0`.
 
 ## Installation
 
@@ -27,18 +27,12 @@ This collection provides tools to manage Python versions using the `uv` Python p
 - **`python`**
   - Installs, uninstalls, and upgrades Python versions.
   - Supports three states:
-    - `present` – ensures a specific Python version is installed
-    - `absent` – removes specified Python version
-    - `latest` – installs the latest patch version for a minor release
+    - `present` – ensures a specific Python version is installed.
+    - `absent` – removes specified Python version.
+    - `latest` – installs the latest patch version for a minor release.
   - Returns facts for further playbook usage:
     - `python_versions` (list) - list of versions changed.
     - `python_paths` (list) - List of installation paths of Python versions changed.
-
-### Roles
-- *(none included in this release)*
-
-### Plugins
-- *(none included in this release)*
 
 ### Notes
 - Designed for Ansible 2.12+ and uv ≥ 0.8.0
