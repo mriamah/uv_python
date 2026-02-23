@@ -7,7 +7,7 @@ Manage Python versions and installations using the [uv](https://github.com/astra
 
 ## Requirements
 
-- Ansible 2.12 or higher.
+- Ansible `2.12` or higher.
 - `uv` installed and available on `PATH`.
 - `uv` version ≥ `0.8.0`.
 
