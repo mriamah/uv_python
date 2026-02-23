@@ -1,4 +1,4 @@
-# Ansible Collection - mriamah.uv_python
+# Ansible Collection - mriamah.uv
 
 Manage Python versions and installations using the `uv` Python package manager.
 
@@ -8,7 +8,7 @@ Manage Python versions and installations using the `uv` Python package manager.
 ## Requirements
 
 - Ansible 2.12 or higher
-- `uv` installed and available on PATH
+- `uv` installed and available on `PATH`
 - `uv` version ≥ 0.8.0
 
 ## Installation
@@ -16,7 +16,7 @@ Manage Python versions and installations using the `uv` Python package manager.
 Install via Ansible Galaxy:
 
 ```bash
-ansible-galaxy collection install mriamah.uv.python
+ansible-galaxy collection install mriamah.uv
 ```
 
 ## Collection Contents
@@ -24,7 +24,7 @@ ansible-galaxy collection install mriamah.uv.python
 This collection provides tools to manage Python versions using the `uv` Python package manager.
 
 ### Modules
-- **`uv_python`**
+- **`python`**
   - Installs, uninstalls, and upgrades Python versions.
   - Supports three states:
     - `present` – ensures a specific Python version is installed
