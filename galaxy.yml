@@ -8,7 +8,7 @@ namespace: mriamah
 name: uv
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 0.1.9
+version: 0.1.10
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -25,7 +25,6 @@ description: Manage Python versions and installations using uv Python package ma
 
 # Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
 # accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'
-license:
 license:
 - GPL-3.0-or-later
 
