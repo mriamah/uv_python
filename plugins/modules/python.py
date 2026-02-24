@@ -9,7 +9,7 @@ module: uv.python
 short_description: Manage Python versions and installations using uv Python package manager.
 description:
   - Install, uninstall or upgrade Python versions managed by C(uv).
-version_added: "0.1.8"
+version_added: "0.1.9"
 requirements:
   - uv must be installed and available in PATH.
   - uv version must be at least 0.8.0.
@@ -25,27 +25,44 @@ options:
   state:
     description:
       - Desired state of the specified Python version.
-      - C(present) ensures the specified version is installed. If a full patch version is specified (for example C(3.12.3)), that exact version will be installed if not already present. If only a minor version is specified (for example 3.12), the latest available patch version for that minor release is installed only if no patch version for that minor release is currently installed (including patch versions not managed by C(uv)). RV(python_versions) and RV(python_paths) lengths are always equal to one for this state. It uses C(uv python install) command.
-      - C(absent) ensures the specified version is removed. If a full patch version is specified, only that exact patch version is removed. If only a minor version is specified (for example C(3.12)), all installed patch versions for that minor release are removed. If the specified version is not installed, no changes are made. RV(python_versions) and RV(python_paths) lengths can be higher or equal to one for this state. Uses C(uv python uninstall) command.
-      - C(latest) ensures the latest available patch version for the specified version is installed. If only a minor version is specified (for example C(3.12)), the latest available patch version for that minor release is always installed. If another patch version is already installed but is not the latest, the latest patch version is installed. The latest patch version installed depends on the C(uv) version, since available Python versions are frozen per C(uv) release. RV(python_versions) and RV(python_paths) lengths are always equal to one for this state. This state does not use C(uv python upgrade).
+      - |
+        V(present) ensures the specified version is installed.
+        If a full patch version is specified (for example C(3.12.3)), that exact version will be installed if not already present.
+        If only a minor version is specified (for example 3.12), the latest available patch version for that minor release is installed only
+        if no patch version for that minor release is currently installed (including patch versions not managed by C(uv)).
+        RV(python_versions) and RV(python_paths) lengths are always equal to one for this state.
+        This state uses C(uv python install) command.
+      - |
+        V(absent) ensures the specified version is removed. If a full patch version is specified, only that exact patch version is removed.
+        If only a minor version is specified (for example C(3.12)), all installed patch versions for that minor release are removed.
+        If the specified version is not installed, no changes are made. RV(python_versions) and RV(python_paths)
+        lengths can be higher or equal to one for this state.
+        This state uses C(uv python uninstall) command.
+      - |
+        V(latest) ensures the latest available patch version for the specified version is installed.
+        If only a minor version is specified (for example C(3.12)), the latest available patch version for that minor release is always installed.
+        If another patch version is already installed but is not the latest, the latest patch version is installed.
+        The latest patch version installed depends on the C(uv) version, since available Python versions are frozen per C(uv) release.
+        RV(python_versions) and RV(python_paths) lengths are always equal to one for this state.
+        This state does not use C(uv python upgrade).
     type: str
     choices: [present, absent, latest]
     default: present
 attributes:
   check_mode:
-      description: Can run in check_mode and return changed status prediction without modifying target.
-      support: full
+    description: Can run in check_mode and return changed status prediction without modifying target.
+    support: full
   diff_mode:
-      description: Returns details on what has changed (or possibly needs changing in check_mode), when in diff mode.
-      support: none
+    description: Returns details on what has changed (or possibly needs changing in check_mode), when in diff mode.
+    support: none
 notes:
 seealso:
-- name: Python versions management with uv
-  description: uv documentation.
-  link: https://docs.astral.sh/uv/concepts/python-versions/
-- name: uv CLI reference
-  description: uv documentation.
-  link: https://docs.astral.sh/uv/reference/cli/#uv-python
+  - name: uv documentation
+    description: Python versions management with uv.
+    link: https://docs.astral.sh/uv/concepts/python-versions/
+  - name: uv CLI documentation
+    description: uv CLI reference guide.
+    link: https://docs.astral.sh/uv/reference/cli/#uv-python
 author: Mariam Ahhttouche (@mriamah)
 
 '''
@@ -130,7 +147,7 @@ class UV:
       detected = out.strip().split()[-1]
       if LooseVersion(detected) < LooseVersion(MINIMUM_UV_VERSION):
           self.module.fail_json(
-              msg=f"uv_python module requires uv >= {MINIMUM_UV_VERSION}",
+              msg=f"uv.python module requires uv >= {MINIMUM_UV_VERSION}",
               detected_version=detected,
               required_version=MINIMUM_UV_VERSION,
           )

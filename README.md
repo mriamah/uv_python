@@ -2,7 +2,7 @@
 
 Manage Python versions and installations using the [uv](https://github.com/astral-sh/uv) Python package manager.
 
-![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.1.8-blue)
+![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.1.9-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 
 ## Requirements
@@ -24,7 +24,7 @@ ansible-galaxy collection install mriamah.uv
 This collection provides tools to manage Python versions using the `uv` Python package manager.
 
 ### Modules
-- **`python`**
+#### python
   - Installs, uninstalls, and upgrades Python versions.
   - Supports three states:
     - `present` – ensures a specific Python version is installed.
