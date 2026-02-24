@@ -2,7 +2,7 @@
 
 Manage Python versions and installations using the [uv](https://github.com/astral-sh/uv) Python package manager.
 
-![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.1.5-blue)
+![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.1.8-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 
 ## Requirements
@@ -63,7 +63,7 @@ This collection provides tools to manage Python versions using the `uv` Python p
 
 ## License
 
-Apache-2.0
+GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 ## References
 
