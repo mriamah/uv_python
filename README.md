@@ -21,7 +21,7 @@ ansible-galaxy collection install mriamah.uv
 
 ## Collection Contents
 
-This collection provides tools to manage Python versions using the `uv` Python package manager.
+This collection provides tools to manage Python versions using the `uv python` subcommand from the Astral `uv` package manager.
 
 ### Modules
 #### python
