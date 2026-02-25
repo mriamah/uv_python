@@ -63,4 +63,6 @@ jobs:
         ansible-galaxy collection install dist/*.tar.gz --force
     - name: Test with ansible-test
       run: |
+        ansible-test sanity -v plugins/modules/uv_python.py
+        ansible-test sanity --test validate-modules plugins/modules/uv_python.py
         ansible-test integration mriamh.uv.python
