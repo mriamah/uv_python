@@ -61,8 +61,12 @@ jobs:
     - name: Install collection
       run: |
         ansible-galaxy collection install dist/*.tar.gz --force
-    - name: Test with ansible-test
+    - name: Prepare collection layout
       run: |
-        ansible-test sanity -v plugins/modules/uv_python.py
-        ansible-test sanity --test validate-modules plugins/modules/uv_python.py
-        ansible-test integration mriamh.uv.python
+        mkdir -p ansible_collections/mriamh
+        cp -r . ansible_collections/mriamh/uv
+    - name: Test with ansible-test
+      working-directory: ansible_collections/mriamah/uv
+      run: |
+        ansible-test sanity --docker -v plugins/modules/uv_python.py
+        ansible-test sanity --docker --test validate-modules plugins/modules/uv_python.py
