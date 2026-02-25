@@ -64,8 +64,8 @@ jobs:
         ansible-galaxy collection install dist/*.tar.gz --force
     - name: Prepare collection layout
       run: |
-        mkdir -p ansible_collections/mriamh
-        cp -r plugins/ ansible_collections/mriamh/uv
+        mkdir -p ansible_collections/mriamah
+        cp -r plugins/ ansible_collections/mriamah/uv
     - name: Test with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
