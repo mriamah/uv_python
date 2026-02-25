@@ -41,8 +41,7 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
-        name: build.tar.gz
-        path: dist/
+        path: dist/*.tar.gz
         retention-days: 1
     - name: debug
       run: ls -lR
