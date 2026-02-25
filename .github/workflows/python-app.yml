@@ -40,19 +40,17 @@ jobs:
         ansible-galaxy collection build --output-path dist/
     - uses: actions/upload-artifact@v4
       with:
-        name: collection-tar
         path: dist/*.tar.gz
     - name: debug
       run: ls -laR
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v4
-      with:
-        name: collection-tar
-        path: dist/
     - name: debug
       run: ls -laR
+    - uses: actions/download-artifact@v4
+      with:
+        path: dist/
     - name: Install collection
       run: |
         ansible-galaxy collection install dist/*.tar.gz --force
