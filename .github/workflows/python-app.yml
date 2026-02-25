@@ -66,6 +66,7 @@ jobs:
       run: |
         mkdir -p ansible_collections/mriamah
         cp -r plugins/ ansible_collections/mriamah/uv
+        cp -r tests/ ansible_collections/mriamah/uv
     - name: Test with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
