@@ -41,12 +41,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - name: debug
+      run: ls -laR
     - name: Get built artifact name
       id: get_tar
       run: |
         TAR_FILE=$(ls *.tar.gz | head -n 1)
-        ls
-        echo $TAR_FILE
         echo "tar_path=$TAR_FILE" >> $GITHUB_OUTPUT
     - name: Install collection
       run: |
