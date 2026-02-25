@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+    - uses: actions/checkout@v4
     - name: debug
       run: ls -laR
     - name: Download all workflow run artifacts
