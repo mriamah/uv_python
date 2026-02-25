@@ -58,7 +58,7 @@ jobs:
         name: artifact
         path: dist/
     - name: debug
-      run: ls -laR
+      run: ls -lR
     - name: Install collection
       run: |
         ansible-galaxy collection install dist/*.tar.gz --force
@@ -69,5 +69,5 @@ jobs:
     - name: Test with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
-        ansible-test sanity --docker -v plugins/modules/uv_python.py
-        ansible-test sanity --docker --test validate-modules plugins/modules/uv_python.py
+        ansible-test sanity --docker -v
+        ansible-test sanity --docker --test validate-modules
