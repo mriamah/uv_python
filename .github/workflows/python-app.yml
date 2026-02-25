@@ -48,7 +48,7 @@ jobs:
         echo "tar_path=$TAR_FILE" >> $GITHUB_OUTPUT
     - name: Install collection
       run: |
-        ansible-galaxy collection install steps.get_tar.outputs.tar_path --force
+        ansible-galaxy collection install ${{ steps.get_tar.outputs.tar_path }} --force
     - name: Test with ansible-test
       run: |
         ansible-test integration mriamh.uv.python
