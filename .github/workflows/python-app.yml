@@ -51,6 +51,8 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         path: dist/
+    - name: debug
+      run: ls -laR
     - name: Install collection
       run: |
         ansible-galaxy collection install dist/*.tar.gz --force
