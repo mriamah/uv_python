@@ -37,20 +37,24 @@ jobs:
         flake8 plugins/modules/python.py --count --exit-zero --max-complexity=10 --max-line-length=160 --statistics --ignore=E402
     - name: Build collection
       run: |
-        ansible-galaxy collection build
+        ansible-galaxy collection build --output-path dist/
+        uses: actions/upload-artifact@v4
+        with:
+          name: collection-tar
+          path: dist/*.tar.gz
   test:
     runs-on: ubuntu-latest
     steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: collection-tar
+        path: dist
     - name: debug
       run: ls -laR
-    - name: Get built artifact name
-      id: get_tar
-      run: |
-        TAR_FILE=$(ls *.tar.gz | head -n 1)
-        echo "tar_path=$TAR_FILE" >> $GITHUB_OUTPUT
     - name: Install collection
       run: |
-        ansible-galaxy collection install ${{ steps.get_tar.outputs.tar_path }} --force
+        ansible-galaxy collection install dist/*.tar.gz --force
     - name: Test with ansible-test
       run: |
         ansible-test integration mriamh.uv.python
