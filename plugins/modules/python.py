@@ -10,7 +10,7 @@ module: uv.python
 short_description: Manage Python versions and installations using uv Python package manager.
 description:
   - Install, uninstall or upgrade Python versions managed by C(uv).
-version_added: "0.1.10"
+version_added: "0.2.0"
 requirements:
   - uv must be installed and available in PATH.
   - uv version must be at least 0.8.0.
@@ -132,7 +132,7 @@ class UV:
         detected = out.strip().split()[-1]
         if LooseVersion(detected) < LooseVersion(MINIMUM_UV_VERSION):
             self.module.fail_json(
-                msg=f"uv_python module requires uv >= {MINIMUM_UV_VERSION}",
+                msg=f"uv.python module requires uv >= {MINIMUM_UV_VERSION}",
                 detected_version=detected,
                 required_version=MINIMUM_UV_VERSION,
             )
