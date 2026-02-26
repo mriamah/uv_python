@@ -14,6 +14,7 @@ version_added: "0.1.12"
 requirements:
   - uv must be installed and available in PATH.
   - uv version must be at least 0.8.0.
+  - Python package: packaging
 options:
   version:
     description:

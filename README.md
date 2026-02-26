@@ -10,6 +10,7 @@ Manage Python versions and installations using the [uv](https://github.com/astra
 - Ansible `2.12` or higher.
 - `uv` installed and available on `PATH`.
 - `uv` version ≥ `0.8.0`.
+- Python package: packaging
 
 ## Installation
 
