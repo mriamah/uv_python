@@ -10,18 +10,17 @@ module: uv.python
 short_description: Manage Python versions and installations using uv Python package manager.
 description:
   - Install, uninstall or upgrade Python versions managed by C(uv).
-version_added: "0.1.13"
+version_added: "0.1.10"
 requirements:
   - uv must be installed and available in PATH.
   - uv version must be at least 0.8.0.
-  - Python package: packaging
 options:
   version:
     description:
       - Python version to manage.
-      - Only L(canonical Python versions, https://peps.python.org/pep-0440/) are supported in this release such as C(3), C(3.12), C(3.12.3), C(3.15.0a5).
+      - Not all canonical Python versions are supported in this release. Valid version numbers consist of two or three dot-separated numeric components, with an optional 'pre-release' tag on the end such as C(3.12), C(3.12.3), C(3.15.0a5).
       - Advanced uv selectors such as C(>=3.12,<3.13) or C(cpython@3.12) are not supported in this release.
-      - When you specify only a major or major.minor version, behavior depends on the O(state) parameter.
+      - When you specify only a major.minor version, behavior depends on the O(state) parameter.
     type: str
     required: true
   state:
@@ -77,11 +76,6 @@ EXAMPLES = r"""
   mriamah.uv.python:
     version: 3.13.5
     state: absent
-
-- name: Upgrade python 3
-  mriamah.uv.python:
-    version: 3
-    state: latest
 """
 
 RETURN = r"""
@@ -108,19 +102,8 @@ rc:
 """
 
 import json
-import traceback
-
-LIB_IMP_ERR = None
-HAS_LIB = False
-try:
-    from packaging.version import Version, InvalidVersion
-
-    HAS_LIB = True
-except ImportError:
-    LIB_IMP_ERR = traceback.format_exc()
-
-from ansible.module_utils.basic import AnsibleModule, missing_required_lib
-from ansible.module_utils.compat.version import LooseVersion
+from ansible.module_utils.basic import AnsibleModule
+from ansible.module_utils.compat.version import LooseVersion, StrictVersion
 
 
 MINIMUM_UV_VERSION = "0.8.0"
@@ -136,11 +119,11 @@ class UV:
         self._ensure_min_uv_version()
         python_version = module.params["version"]
         try:
-            self.python_version = Version(python_version)
+            self.python_version = StrictVersion(python_version)
             self.python_version_str = self.python_version.__str__()
-        except InvalidVersion:
+        except ValueError:
             self.module.fail_json(
-                msg="Unsupported version format. Only canonical Python versions (e.g. 3, 3.12, 3.12.3, 3.15.0a5) are supported in this release."
+                msg="Unsupported version format. Valid version numbers consist of two or three dot-separated numeric components, with an optional 'pre-release' tag on the end (e.g. 3.12, 3.12.3, 3.15.0a5) are supported in this release."
             )
 
     def _ensure_min_uv_version(self):
@@ -230,7 +213,7 @@ class UV:
         latest_version_str, ignored_path = self._get_latest_patch_release("--managed-python")
         if not latest_version_str:
             self.module.fail_json(msg=f"Version {self.python_version_str} is not available.")
-        if rc == 0 and installed_version >= Version(latest_version_str):
+        if rc == 0 and installed_version >= StrictVersion(latest_version_str):
             ignored_rc, install_path, ignored_err = self._find_python()
             return False, "", "", rc, [installed_version_str], [install_path]
         if self.module.check_mode:
@@ -342,18 +325,18 @@ class UV:
         valid_results = []
         for result in results:
             try:
-                result["parsed_version"] = Version(result.get("version", ""))
+                result["parsed_version"] = StrictVersion(result.get("version", ""))
                 valid_results.append(result)
-            except InvalidVersion:
+            except ValueError:
                 continue
         return valid_results
 
     @staticmethod
     def _parse_version(version_str):
         try:
-            return Version(version_str)
-        except InvalidVersion:
-            return Version("0")
+            return StrictVersion(version_str)
+        except ValueError:
+            return StrictVersion("0")
 
 
 def main():
@@ -364,9 +347,6 @@ def main():
         ),
         supports_check_mode=True,
     )
-
-    if not HAS_LIB:
-        module.fail_json(msg=missing_required_lib("packaging"), exception=LIB_IMP_ERR)
 
     result = dict(changed=False, stdout="", stderr="", rc=0, python_versions=[], python_paths=[], failed=False)
     state = module.params["state"]
