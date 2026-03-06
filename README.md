@@ -2,7 +2,7 @@
 
 Manage Python versions and installations using the [uv](https://github.com/astral-sh/uv) Python package manager.
 
-![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.2.0-blue)
+![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.2.1-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 
 ## Requirements
