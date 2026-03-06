@@ -11,12 +11,12 @@ description:
   - Install, uninstall or upgrade Python versions managed by C(uv).
 requirements:
   - uv must be installed and available in PATH and uv version must be >= 0.8.0.
-extends_documentation_fragment:
-  - community.general.attributes
 attributes:
   check_mode:
+    description: Can run in check_mode and return changed status prediction without modifying target.
     support: full
   diff_mode:
+    description: Returns details on what has changed (or possibly needs changing in check_mode), when in diff mode.
     support: none
 options:
   version:
