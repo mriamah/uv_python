@@ -1,6 +1,6 @@
 # Ansible Collection - mriamah.uv
 
-Manage Python versions and installations using the [uv](https://github.com/astral-sh/uv) Python package manager.
+Manage Python versions using the [uv](https://github.com/astral-sh/uv) Python package manager.
 
 ![Galaxy](https://img.shields.io/badge/ansible--galaxy-0.2.1-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
@@ -49,14 +49,14 @@ This collection provides tools to manage Python versions using the `uv python` s
 ```yaml
 - name: Remove Python 3.12
   mriamah.uv.python:
-    version: 3.12
+    version: "3.12"
     state: absent
 ```
 
 ```yaml
 - name: Install latest patch for 3.12
   mriamah.uv.python:
-    version: 3.12
+    version: "3.12"
     state: latest
 ```
 
