@@ -100,6 +100,7 @@ rc:
 """
 
 import json
+import re
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.compat.version import LooseVersion, StrictVersion
 
@@ -128,13 +129,16 @@ class UV:
     def _ensure_min_uv_version(self):
         cmd = [self.bin_path, "--version", "--color", "never"]
         ignored_rc, out, ignored_err = self.module.run_command(cmd, check_rc=True)
-        detected = out.strip().split()[-1]
-        if LooseVersion(detected) < LooseVersion(MINIMUM_UV_VERSION):
-            self.module.fail_json(
-                msg=f"uv.python module requires uv >= {MINIMUM_UV_VERSION}",
-                detected_version=detected,
-                required_version=MINIMUM_UV_VERSION,
-            )
+        try:
+          detected = re.search(r"\b\d+(?:\.\d+)+\b", out).group()
+          if LooseVersion(detected) < LooseVersion(MINIMUM_UV_VERSION):
+              self.module.fail_json(
+                  msg=f"uv_python module requires uv >= {MINIMUM_UV_VERSION}",
+                  detected_version=detected,
+                  required_version=MINIMUM_UV_VERSION,
+              )
+        except AttributeError:
+            self.module.warn("Could not get installed uv version, skipping uv version check")
 
     def install_python(self):
         """
