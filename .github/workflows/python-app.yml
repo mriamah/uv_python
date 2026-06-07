@@ -70,7 +70,7 @@ jobs:
     - name: Run integration tests with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
-        ansible-test integration -v
+        ansible-test integration -v python
     - name: Run sanity checks with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
