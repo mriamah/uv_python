@@ -9,7 +9,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 - name: Install python 3.14 when no uv executable exists
-  uv_python:
+  mriamah.uv.python:
     version: 3.14
     state: present
   check_mode: true
@@ -28,7 +28,7 @@
     UV_INSTALL_DIR: /usr/local/bin
 
 - name: Install python 3
-  uv_python:
+  mriamah.uv.python:
     version: 3
     state: present
   register: python_install
@@ -40,7 +40,7 @@
       - python_install.python_versions | length >= 1
 
 - name: Upgrade python 3
-  uv_python:
+  mriamah.uv.python:
     version: 3
     state: latest
   register: python_install
@@ -52,7 +52,7 @@
       - python_install.python_versions | length >= 1
 
 - name: Remove python 3
-  uv_python:
+  mriamah.uv.python:
     version: 3
     state: absent
   register: python_delete
@@ -63,7 +63,7 @@
       - python_delete.failed is false
 
 - name: Install python 3.14 in check mode
-  uv_python:
+  mriamah.uv.python:
     version: 3.14
     state: present
   check_mode: true
@@ -77,7 +77,7 @@
       - install_check_mode.python_versions | length >= 1
 
 - name: Install python 3.14
-  uv_python:
+  mriamah.uv.python:
     version: 3.14
     state: present
   register: install_python
@@ -91,7 +91,7 @@
       - install_python.python_paths | length >= 1
 
 - name: Re-install python 3.14
-  uv_python:
+  mriamah.uv.python:
     version: 3.14
     state: present
   register: reinstall_python
@@ -105,7 +105,7 @@
       - reinstall_python.python_paths | length >= 1
 
 - name: Install python 3.13.5
-  uv_python:
+  mriamah.uv.python:
     version: 3.13.5
   register: install_python
 
@@ -118,7 +118,7 @@
       - install_python.python_paths | length >= 1
 
 - name: Re-install python 3.13.5
-  uv_python:
+  mriamah.uv.python:
     version: 3.13.5
     state: present
   register: reinstall_python
@@ -131,7 +131,7 @@
       - '"3.13.5" in reinstall_python.python_versions'
 
 - name: Remove uninstalled python 3.10 # removes latest patch version for 3.10 if exists
-  uv_python:
+  mriamah.uv.python:
     version: "3.10"
     state: absent
   register: remove_python
@@ -144,7 +144,7 @@
       - remove_python.python_versions | length == 0
 
 - name: Remove python 3.13.5 in check mode
-  uv_python:
+  mriamah.uv.python:
     version: 3.13.5
     state: absent
   check_mode: true
@@ -159,7 +159,7 @@
       - remove_python_in_check_mode.python_paths | length >= 1
 
 - name: Remove python 3.13.5
-  uv_python:
+  mriamah.uv.python:
     version: 3.13.5
     state: absent
   register: remove_python
@@ -173,7 +173,7 @@
       - '"3.13.5" in remove_python.python_versions'
 
 - name: Remove python 3.13.5 again
-  uv_python:
+  mriamah.uv.python:
     version: 3.13.5
     state: absent
   register: remove_python
@@ -187,7 +187,7 @@
       - remove_python.python_paths | length == 0
 
 - name: Upgrade python 3.13
-  uv_python:
+  mriamah.uv.python:
     version: 3.13
     state: latest
   register: upgrade_python
@@ -201,7 +201,7 @@
       - upgrade_python.python_paths | length >= 1
 
 - name: Upgrade python 3.13 in check mode
-  uv_python:
+  mriamah.uv.python:
     version: 3.13
     state: latest
   check_mode: true
@@ -215,7 +215,7 @@
       - upgrade_python.python_versions | length >= 1
 
 - name: Upgrade python 3.13 again
-  uv_python:
+  mriamah.uv.python:
     version: 3.13
     state: latest
   check_mode: true
@@ -229,7 +229,7 @@
       - upgrade_python.python_versions | length >= 1
 
 - name: Install unexisting python version in check mode
-  uv_python:
+  mriamah.uv.python:
     version: 3.12.13
     state: present
   register: unexisting_python_check_mode
@@ -244,7 +244,7 @@
       - '"Version 3.12.13 is not available." in unexisting_python_check_mode.msg'
 
 - name: Install unexisting python version
-  uv_python:
+  mriamah.uv.python:
     state: present
     version: 3.12.13
   register: unexisting_python
@@ -257,7 +257,7 @@
       - unexisting_python.failed is true
 
 - name: Install unexisting python version with latest state
-  uv_python:
+  mriamah.uv.python:
     version: 3.12.13
     state: latest
   register: unexisting_python
@@ -270,7 +270,7 @@
       - unexisting_python.failed is true
 
 - name: Delete python 3.13 version
-  uv_python:
+  mriamah.uv.python:
     version: 3.13
     state: absent
   register: uninstall_result
@@ -283,7 +283,7 @@
       - '"3.13.12" in uninstall_result.python_versions'
 
 - name: No specified version
-  uv_python:
+  mriamah.uv.python:
     state: latest
   ignore_errors: true
   register: no_version
