@@ -67,12 +67,13 @@ jobs:
         mkdir -p ansible_collections/mriamah
         cp -r plugins/ ansible_collections/mriamah/uv
         cp -r tests/ ansible_collections/mriamah/uv
-    - name: Run integration tests with ansible-test
-      working-directory: ansible_collections/mriamah/uv
-      run: |
-        ansible-test integration -v python
     - name: Run sanity checks with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
         ansible-test sanity --docker -v
         ansible-test sanity --docker --test validate-modules
+    - name: Run integration tests with ansible-test
+      working-directory: ansible_collections/mriamah/uv
+      run: |
+        ansible-test integration -v python
+
