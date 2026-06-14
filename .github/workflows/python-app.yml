@@ -50,6 +50,16 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install ansible-test dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible
+
     - name: debug
       run: ls -laR
     - name: Download all workflow run artifacts
@@ -70,10 +80,9 @@ jobs:
     - name: Run sanity checks with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
-        ansible-test sanity --docker -v
-        ansible-test sanity --docker --test validate-modules
+        ansible-test sanity -vvv
     - name: Run integration tests with ansible-test
       working-directory: ansible_collections/mriamah/uv
       run: |
-        ansible-test integration -v python
+        ansible-test integration --docker -vvv python
 
